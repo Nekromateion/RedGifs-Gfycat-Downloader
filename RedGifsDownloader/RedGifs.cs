@@ -6,7 +6,7 @@ using RedGifsDownloader.JsonObjects;
 
 namespace RedGifsDownloader
 {
-    public class RedGifs
+    public static class RedGifs
     {
         private static readonly WebClient WebClient = new WebClient();
         internal static void DownloadUser(string userId, bool downloadMp4, int minLikes)
