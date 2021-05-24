@@ -9,7 +9,6 @@ namespace RedGifsDownloader
     public class RedGifs
     {
         private static readonly WebClient WebClient = new WebClient();
-        // https://api.redgifs.com/v1/users/vrccatsy/gfycats?count=100
         internal static void DownloadUser(string userId, bool downloadMp4, int minLikes)
         {
             Directory.CreateDirectory(userId);
