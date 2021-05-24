@@ -2,7 +2,7 @@
 
 namespace RedGifsDownloader
 {
-    internal class Program
+    internal static class Program
     {
         public static void Main(string[] args)
         {
@@ -18,9 +18,13 @@ namespace RedGifsDownloader
             }
             catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Something failed wile downloading...");
                 Console.WriteLine(e);
             }
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("DOWNLOAD FINISHED!");
             Console.ReadLine();
         }
     }
