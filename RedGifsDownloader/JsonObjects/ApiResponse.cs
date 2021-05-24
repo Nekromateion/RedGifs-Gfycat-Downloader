@@ -2,7 +2,7 @@
 
 namespace RedGifsDownloader.JsonObjects
 {
-    public class User
+    public class ApiResponse
     {
         public string cursor { get; set; }
         public List<Gfycat> gfycats { get; set; }

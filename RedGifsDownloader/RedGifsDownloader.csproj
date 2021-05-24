@@ -51,7 +51,7 @@
         <Compile Include="JsonObjects\Mobile.cs" />
         <Compile Include="JsonObjects\MobilePoster.cs" />
         <Compile Include="JsonObjects\Mp4.cs" />
-        <Compile Include="JsonObjects\User.cs" />
+        <Compile Include="JsonObjects\ApiResponse.cs" />
         <Compile Include="JsonObjects\Webm.cs" />
         <Compile Include="JsonObjects\Webp.cs" />
         <Compile Include="JsonObjects\_100pxGif.cs" />
