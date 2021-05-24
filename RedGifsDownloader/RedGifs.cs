@@ -22,11 +22,11 @@ namespace RedGifsDownloader
                         Console.WriteLine($"Downloading {gif.gfyName}\t({gif.views} views & {gif.likes} likes)");
                         if (downloadMp4)
                         {
-                            if (gif.mp4Url != null)
+                            try
                             {
-                                WebClient.DownloadFile(gif.mp4Url, userId + "/" + gif.gfyName + ".mp4");
+                                WebClient.DownloadFile(gif.mp4Url ?? gif.mobileUrl, userId + "/" + gif.gfyName + ".mp4");
                             }
-                            else
+                            catch
                             {
                                 WebClient.DownloadFile(gif.mobileUrl, userId + "/" + gif.gfyName + ".mp4");
                             }
@@ -59,7 +59,7 @@ namespace RedGifsDownloader
                                 {
                                     WebClient.DownloadFile(gif.mp4Url ?? gif.mobileUrl, userId + "/" + gif.gfyName + ".mp4");
                                 }
-                                catch (Exception e)
+                                catch
                                 {
                                     WebClient.DownloadFile(gif.mobileUrl, userId + "/" + gif.gfyName + ".mp4");
                                 }
@@ -102,7 +102,7 @@ namespace RedGifsDownloader
                             {
                                 WebClient.DownloadFile(gif.mp4Url ?? gif.mobileUrl, "search/"+searchTerm + "/" + gif.gfyName + ".mp4");
                             }
-                            catch (Exception e)
+                            catch
                             {
                                 WebClient.DownloadFile(gif.mobileUrl, "search/"+searchTerm + "/" + gif.gfyName + ".mp4");
                             }
@@ -135,7 +135,7 @@ namespace RedGifsDownloader
                                 {
                                     WebClient.DownloadFile(gif.mp4Url ?? gif.mobileUrl, "search/"+searchTerm + "/" + gif.gfyName + ".mp4");
                                 }
-                                catch (Exception e)
+                                catch
                                 {
                                     WebClient.DownloadFile(gif.mobileUrl, "search/"+searchTerm + "/" + gif.gfyName + ".mp4");
                                 }

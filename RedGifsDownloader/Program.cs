@@ -12,7 +12,7 @@ namespace RedGifsDownloader
                 ? "Please enter the id of the user you want to download: "
                 : "Please enter the search term you want to download: ");
             string input = Console.ReadLine().ToLower();
-            Console.Title = input;
+            Console.Title = inp == "1" ? "Downloading User: " + input : "Downloading Search: " + input;
             Console.Write("Do you want to download the mp4s(type mp4) or gifs(type gif): ");
             bool downloadMp4 = Console.ReadLine() == "mp4";
             Console.Write("What is the minimum amount of likes a gif/video should have? ");
@@ -37,6 +37,7 @@ namespace RedGifsDownloader
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("DOWNLOAD FINISHED!");
+            Console.Title = inp == "1" ? "FINISHED Downloading User: " + input : "FINISHED Downloading Search: " + input;
             Console.ReadLine();
         }
     }
