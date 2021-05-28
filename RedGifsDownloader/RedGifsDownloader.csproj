@@ -42,19 +42,6 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="JsonObjects\ContentUrls.cs" />
-        <Compile Include="JsonObjects\Gfycat.cs" />
-        <Compile Include="JsonObjects\LargeGif.cs" />
-        <Compile Include="JsonObjects\Max1mbGif.cs" />
-        <Compile Include="JsonObjects\Max2mbGif.cs" />
-        <Compile Include="JsonObjects\Max5mbGif.cs" />
-        <Compile Include="JsonObjects\Mobile.cs" />
-        <Compile Include="JsonObjects\MobilePoster.cs" />
-        <Compile Include="JsonObjects\Mp4.cs" />
-        <Compile Include="JsonObjects\ApiResponse.cs" />
-        <Compile Include="JsonObjects\Webm.cs" />
-        <Compile Include="JsonObjects\Webp.cs" />
-        <Compile Include="JsonObjects\_100pxGif.cs" />
         <Compile Include="Program.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="RedGifs.cs" />
