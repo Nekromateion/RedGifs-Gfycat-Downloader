@@ -6,6 +6,18 @@ namespace RedGifsDownloader
     {
         public static void Main(string[] args)
         {
+            Console.Write("Do you want to download from gfycat(type g) or redgifs(type r)?");
+            switch (Console.ReadLine())
+            {
+                case "redgifs":
+                case "r":
+                    ApiEndpoints.BaseUrl = "https://api.redgifs.com/v1/";
+                    break;
+                case "gfycat":
+                case "g":
+                    ApiEndpoints.BaseUrl = "https://api.gfycat.com/v1/";
+                    break;
+            }
             Console.Write("Do you want to download by user(type 1) or by search term(2)");
             var inp = Console.ReadLine();
             Console.Write(inp == "1"
@@ -20,15 +32,15 @@ namespace RedGifsDownloader
             try
             {
                 if (inp == "1")
-                    RedGifs.DownloadUser(input, downloadMp4, minLikes);
+                    Api.DownloadUser(input, downloadMp4, minLikes);
                 else
-                    RedGifs.DownloadBySearch(input, downloadMp4, minLikes);
+                    Api.DownloadBySearch(input, downloadMp4, minLikes);
             }
             catch (Exception e)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(
-                    "Something failed wile downloading...\nPlease report this on the github repo (https://github.com/Nekromateion/RedGifsDownloader)");
+                    "Something failed wile downloading...\nPlease report this on the github repo (https://github.com/Nekromateion/GfycatDownloader)");
                 Console.WriteLine(e);
             }
 

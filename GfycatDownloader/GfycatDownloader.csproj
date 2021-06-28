@@ -8,7 +8,7 @@
         <OutputType>Exe</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>RedGifsDownloader</RootNamespace>
-        <AssemblyName>RedGifsDownloader</AssemblyName>
+        <AssemblyName>GfycatDownloader</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
