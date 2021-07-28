@@ -24,26 +24,32 @@ namespace RedGifsDownloader
                             $"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                         if (downloadMp4)
                         {
-                            try
+                            if (!File.Exists(userId + "/" + (string) gif["gfyName"] + ".mp4"))
                             {
-                                WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
-                                    userId + "/" + (string) gif["gfyName"] + ".mp4");
-                            }
-                            catch
-                            {
-                                WebClient.DownloadFile((string) gif["mobileUrl"],
-                                    userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                try
+                                {
+                                    WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
+                                        userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                }
+                                catch
+                                {
+                                    WebClient.DownloadFile((string) gif["mobileUrl"],
+                                        userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                }
                             }
                         }
                         else
                         {
-                            if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
-                                gif["content_urls"]["largeGif"]["url"] != null)
-                                WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
-                                    userId + "/" + (string) gif["gfyName"] + ".gif");
-                            else if (gif["gifUrl"] != null)
-                                WebClient.DownloadFile((string) gif["gifUrl"],
-                                    userId + "/" + (string) gif["gfyName"] + ".gif");
+                            if (!File.Exists(userId + "/" + (string) gif["gfyName"] + ".gif"))
+                            {
+                                if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
+                                    gif["content_urls"]["largeGif"]["url"] != null)
+                                    WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
+                                        userId + "/" + (string) gif["gfyName"] + ".gif");
+                                else if (gif["gifUrl"] != null)
+                                    WebClient.DownloadFile((string) gif["gifUrl"],
+                                        userId + "/" + (string) gif["gfyName"] + ".gif");
+                            }
                         }
                     }
 
@@ -58,26 +64,32 @@ namespace RedGifsDownloader
                                 $"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                             if (downloadMp4)
                             {
-                                try
+                                if (!File.Exists(userId + "/" + (string) gif["gfyName"] + ".mp4"))
                                 {
-                                    WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
-                                        userId + "/" + (string) gif["gfyName"] + ".mp4");
-                                }
-                                catch
-                                {
-                                    WebClient.DownloadFile((string) gif["mobileUrl"],
-                                        userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                    try
+                                    {
+                                        WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
+                                            userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                    }
+                                    catch
+                                    {
+                                        WebClient.DownloadFile((string) gif["mobileUrl"],
+                                            userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                    }
                                 }
                             }
                             else
                             {
-                                if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
-                                    gif["content_urls"]["largeGif"]["url"] != null)
-                                    WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
-                                        userId + "/" + (string) gif["gfyName"] + ".gif");
-                                else if (gif["gifUrl"] != null)
-                                    WebClient.DownloadFile((string) gif["gifUrl"],
-                                        userId + "/" + (string) gif["gfyName"] + ".gif");
+                                if (!File.Exists(userId + "/" + (string) gif["gfyName"] + ".gif"))
+                                {
+                                    if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
+                                        gif["content_urls"]["largeGif"]["url"] != null)
+                                        WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
+                                            userId + "/" + (string) gif["gfyName"] + ".gif");
+                                    else if (gif["gifUrl"] != null)
+                                        WebClient.DownloadFile((string) gif["gifUrl"],
+                                            userId + "/" + (string) gif["gfyName"] + ".gif");
+                                }
                             }
                         }
                 }
@@ -103,26 +115,32 @@ namespace RedGifsDownloader
                             $"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                         if (downloadMp4)
                         {
-                            try
+                            if (!File.Exists("search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4"))
                             {
-                                WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
-                                    "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
-                            }
-                            catch
-                            {
-                                WebClient.DownloadFile((string) gif["mobileUrl"],
-                                    "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
+                                try
+                                {
+                                    WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
+                                        "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
+                                }
+                                catch
+                                {
+                                    WebClient.DownloadFile((string) gif["mobileUrl"],
+                                        "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
+                                }
                             }
                         }
                         else
                         {
-                            if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
-                                gif["content_urls"]["largeGif"]["url"] != null)
-                                WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
-                                    "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
-                            else if (gif["gifUrl"] != null)
-                                WebClient.DownloadFile((string) gif["gifUrl"],
-                                    "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
+                            if (!File.Exists("search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif"))
+                            {
+                                if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
+                                    gif["content_urls"]["largeGif"]["url"] != null)
+                                    WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
+                                        "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
+                                else if (gif["gifUrl"] != null)
+                                    WebClient.DownloadFile((string) gif["gifUrl"],
+                                        "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
+                            }
                         }
                     }
 
@@ -137,26 +155,32 @@ namespace RedGifsDownloader
                                 $"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                             if (downloadMp4)
                             {
-                                try
+                                if (!File.Exists("search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4"))
                                 {
-                                    WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
-                                        "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
-                                }
-                                catch
-                                {
-                                    WebClient.DownloadFile((string) gif["mobileUrl"],
-                                        "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
+                                    try
+                                    {
+                                        WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
+                                            "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
+                                    }
+                                    catch
+                                    {
+                                        WebClient.DownloadFile((string) gif["mobileUrl"],
+                                            "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
+                                    }
                                 }
                             }
                             else
                             {
-                                if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
-                                    gif["content_urls"]["largeGif"]["url"] != null)
-                                    WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
-                                        "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
-                                else if (gif["gifUrl"] != null)
-                                    WebClient.DownloadFile((string) gif["gifUrl"],
-                                        "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
+                                if (!File.Exists("search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif"))
+                                {
+                                    if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
+                                        gif["content_urls"]["largeGif"]["url"] != null)
+                                        WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
+                                            "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
+                                    else if (gif["gifUrl"] != null)
+                                        WebClient.DownloadFile((string) gif["gifUrl"],
+                                            "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
+                                }
                             }
                         }
                 }
