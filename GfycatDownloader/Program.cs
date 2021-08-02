@@ -4,6 +4,8 @@ namespace RedGifsDownloader
 {
     internal static class Program
     {
+        internal static bool isCli = false;
+        
         public static void Main(string[] args)
         {
             string inp;
@@ -14,6 +16,7 @@ namespace RedGifsDownloader
             {
                 if (args.Length >= 5)
                 {
+                    isCli = true;
                     switch (args[0])
                     {
                         case "redgifs":
@@ -81,9 +84,12 @@ namespace RedGifsDownloader
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("DOWNLOAD FINISHED!");
-            Console.Title =
-                inp == "1" ? "FINISHED Downloading User: " + input : "FINISHED Downloading Search: " + input;
-            Console.ReadLine();
+            if (!isCli)
+            {
+                Console.Title =
+                    inp == "1" ? "FINISHED Downloading User: " + input : "FINISHED Downloading Search: " + input;
+                Console.ReadLine();
+            }
         }
     }
 }
