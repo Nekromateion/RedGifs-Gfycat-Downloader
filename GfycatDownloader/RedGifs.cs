@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Threading;
 using Newtonsoft.Json.Linq;
 
 namespace RedGifsDownloader
@@ -11,6 +12,7 @@ namespace RedGifsDownloader
 
         internal static void DownloadUser(string userId, bool downloadMp4, int minLikes)
         {
+            int count = 0;
             Directory.CreateDirectory(userId);
             var user = JObject.Parse(
                 WebClient.DownloadString($"{ApiEndpoints.BaseUrl}{ApiEndpoints.UsersEndpoint}{userId}{ApiEndpoints.UserGfysEndpoint}?count=100"));
@@ -20,77 +22,85 @@ namespace RedGifsDownloader
                 foreach (var gif in user["gfycats"])
                     if ((int) gif["likes"] >= minLikes)
                     {
-                        Console.WriteLine(
-                            $"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                         if (downloadMp4)
                         {
-                            if (!File.Exists(userId + "/" + (string) gif["gfyName"] + ".mp4"))
+                            if (!File.Exists(userId + "/mp4/" + (string) gif["gfyName"] + ".mp4"))
                             {
+                                Directory.CreateDirectory(userId + "/mp4");
+                                Console.WriteLine($"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                                 try
                                 {
                                     WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
-                                        userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                        userId + "/mp4/" + (string) gif["gfyName"] + ".mp4");
                                 }
                                 catch
                                 {
                                     WebClient.DownloadFile((string) gif["mobileUrl"],
-                                        userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                        userId + "/mp4/" + (string) gif["gfyName"] + ".mp4");
                                 }
                             }
+                            else count++;
                         }
                         else
                         {
-                            if (!File.Exists(userId + "/" + (string) gif["gfyName"] + ".gif"))
+                            if (!File.Exists(userId + "/gif/" + (string) gif["gfyName"] + ".gif"))
                             {
+                                Directory.CreateDirectory(userId + "/gif");
+                                Console.WriteLine($"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                                 if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
                                     gif["content_urls"]["largeGif"]["url"] != null)
                                     WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
-                                        userId + "/" + (string) gif["gfyName"] + ".gif");
+                                        userId + "/gif/" + (string) gif["gfyName"] + ".gif");
                                 else if (gif["gifUrl"] != null)
                                     WebClient.DownloadFile((string) gif["gifUrl"],
-                                        userId + "/" + (string) gif["gfyName"] + ".gif");
+                                        userId + "/gif/" + (string) gif["gfyName"] + ".gif");
                             }
+                            else count++;
                         }
+
+                        Thread.Sleep(100);
                     }
 
-                while ((string) user["cursor"] != null)
+                while ((string) user["cursor"] != null && count < 100)
                 {
                     user = JObject.Parse(WebClient.DownloadString(
                         $"{ApiEndpoints.BaseUrl}{ApiEndpoints.UsersEndpoint}{userId}{ApiEndpoints.UserGfysEndpoint}?count=100&cursor={(string) user["cursor"]}"));
                     foreach (var gif in user["gfycats"])
                         if ((int) gif["likes"] >= minLikes)
                         {
-                            Console.WriteLine(
-                                $"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                             if (downloadMp4)
                             {
-                                if (!File.Exists(userId + "/" + (string) gif["gfyName"] + ".mp4"))
+                                if (!File.Exists(userId + "/mp4/" + (string) gif["gfyName"] + ".mp4"))
                                 {
+                                    Console.WriteLine($"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                                     try
                                     {
                                         WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
-                                            userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                            userId + "/mp4/" + (string) gif["gfyName"] + ".mp4");
                                     }
                                     catch
                                     {
                                         WebClient.DownloadFile((string) gif["mobileUrl"],
-                                            userId + "/" + (string) gif["gfyName"] + ".mp4");
+                                            userId + "/mp4/" + (string) gif["gfyName"] + ".mp4");
                                     }
                                 }
                             }
                             else
                             {
-                                if (!File.Exists(userId + "/" + (string) gif["gfyName"] + ".gif"))
+                                if (!File.Exists(userId + "/gif/" + (string) gif["gfyName"] + ".gif"))
                                 {
+                                    Console.WriteLine($"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                                     if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
                                         gif["content_urls"]["largeGif"]["url"] != null)
                                         WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
-                                            userId + "/" + (string) gif["gfyName"] + ".gif");
+                                            userId + "/gif/" + (string) gif["gfyName"] + ".gif");
                                     else if (gif["gifUrl"] != null)
                                         WebClient.DownloadFile((string) gif["gifUrl"],
-                                            userId + "/" + (string) gif["gfyName"] + ".gif");
+                                            userId + "/gif/" + (string) gif["gfyName"] + ".gif");
                                 }
                             }
+                            
+                            Thread.Sleep(100);
                         }
                 }
             }
@@ -102,6 +112,7 @@ namespace RedGifsDownloader
 
         internal static void DownloadBySearch(string searchTerm, bool downloadMp4, int minLikes)
         {
+            int count = 0;
             Directory.CreateDirectory("search/" + searchTerm);
             var search =
                 JObject.Parse(WebClient.DownloadString(
@@ -111,12 +122,12 @@ namespace RedGifsDownloader
                 foreach (var gif in search["gfycats"])
                     if ((int) gif["likes"] >= minLikes)
                     {
-                        Console.WriteLine(
-                            $"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                         if (downloadMp4)
                         {
                             if (!File.Exists("search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4"))
                             {
+                                Console.WriteLine(
+                                    $"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                                 try
                                 {
                                     WebClient.DownloadFile((string) gif["mp4Url"] ?? (string) gif["mobileUrl"],
@@ -128,11 +139,13 @@ namespace RedGifsDownloader
                                         "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
                                 }
                             }
+                            else count++;
                         }
                         else
                         {
                             if (!File.Exists("search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif"))
                             {
+                                Console.WriteLine($"Downloading {(string) gif["gfyName"]}\t({(string) gif["views"]} views & {(string) gif["likes"]} likes)");
                                 if (gif["content_urls"] != null && gif["content_urls"]["largeGif"] != null &&
                                     gif["content_urls"]["largeGif"]["url"] != null)
                                     WebClient.DownloadFile((string) gif["content_urls"]["largeGif"]["url"],
@@ -141,10 +154,13 @@ namespace RedGifsDownloader
                                     WebClient.DownloadFile((string) gif["gifUrl"],
                                         "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
                             }
+                            else count++;
                         }
+                        
+                        Thread.Sleep(100);
                     }
 
-                while ((string) search["cursor"] != null)
+                while ((string) search["cursor"] != null && count < 100)
                 {
                     search = JObject.Parse(WebClient.DownloadString(
                         $"{ApiEndpoints.BaseUrl}{ApiEndpoints.SearchEndpoint}?search_text={searchTerm}&count=150&order=trending&cursor={(string) search["cursor"]}"));
@@ -168,6 +184,7 @@ namespace RedGifsDownloader
                                             "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".mp4");
                                     }
                                 }
+                                else count++;
                             }
                             else
                             {
@@ -181,7 +198,10 @@ namespace RedGifsDownloader
                                         WebClient.DownloadFile((string) gif["gifUrl"],
                                             "search/" + searchTerm + "/" + (string) gif["gfyName"] + ".gif");
                                 }
+                                else count++;
                             }
+                            
+                            Thread.Sleep(100);
                         }
                 }
             }
