@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GfycatDownloader", "GfycatDownloader\GfycatDownloader.csproj", "{02E5DF6C-982A-47D8-8CF8-E47EA76B4115}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GfycatDownloader_Rewrite_DNCore", "GfycatDownloader_Rewrite_DNCore\GfycatDownloader_Rewrite_DNCore.csproj", "{C53A4441-E08F-4D13-8490-502F9481297D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{02E5DF6C-982A-47D8-8CF8-E47EA76B4115}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02E5DF6C-982A-47D8-8CF8-E47EA76B4115}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02E5DF6C-982A-47D8-8CF8-E47EA76B4115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C53A4441-E08F-4D13-8490-502F9481297D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C53A4441-E08F-4D13-8490-502F9481297D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C53A4441-E08F-4D13-8490-502F9481297D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C53A4441-E08F-4D13-8490-502F9481297D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
